@@ -4,6 +4,7 @@ const { Router } = require('express');
 
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user');
+const routeGuard = require('./../middleware/route-guard');
 
 const router = new Router();
 
@@ -55,9 +56,14 @@ router.post('/login', (req, res, next) => {
     });
 });
 
-router.post('/logout', (req, res, next) => {
+router.post('/logout', (req, res) => {
   req.session.destroy();
   res.json({ type: 'success', data: { title: 'OK' } });
+});
+
+router.get('/loggedin', (req, res) => {
+  const user = req.user || null;
+  res.json({ user });
 });
 
 module.exports = router;
