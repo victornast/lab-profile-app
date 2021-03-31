@@ -7,14 +7,17 @@ const User = require('./../models/user');
 
 const router = new Router();
 
-router.post('/sign-up', (req, res, next) => {
-  const { name, email, password } = req.body;
+router.post('/signup', (req, res, next) => {
+  const { name, email, password, campus, course, image } = req.body;
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
       return User.create({
         name,
         email,
+        campus,
+        course,
+        image,
         passwordHashAndSalt: hash
       });
     })
@@ -27,7 +30,7 @@ router.post('/sign-up', (req, res, next) => {
     });
 });
 
-router.post('/sign-in', (req, res, next) => {
+router.post('/login', (req, res, next) => {
   let user;
   const { email, password } = req.body;
   User.findOne({ email })
@@ -52,7 +55,7 @@ router.post('/sign-in', (req, res, next) => {
     });
 });
 
-router.post('/sign-out', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
   req.session.destroy();
   res.json({});
 });
