@@ -5,6 +5,7 @@ const { Router } = require('express');
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user');
 const routeGuard = require('./../middleware/route-guard');
+const fileUploadMiddleware = require('./../middleware/file-upload');
 
 const router = new Router();
 
@@ -65,5 +66,42 @@ router.get('/loggedin', (req, res) => {
   const user = req.user || null;
   res.json({ user });
 });
+
+router.post('/edit', routeGuard, (req, res, next) => {
+  const { name, campus, course } = req.body;
+  User.findByIdAndUpdate(
+    req.user.id,
+    { name, campus, course },
+    { new: true, useFindAndModify: false }
+  )
+    .then((user) => {
+      res.json({ user });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+router.post(
+  '/upload',
+  routeGuard,
+  fileUploadMiddleware.single('image'),
+  (req, res, next) => {
+    let picture;
+    if (req.file) picture = req.file.path;
+
+    User.findByIdAndUpdate(
+      req.user.id,
+      { image: picture },
+      { new: true, useFindAndModify: false }
+    )
+      .then((user) => {
+        res.json({ user });
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 module.exports = router;
