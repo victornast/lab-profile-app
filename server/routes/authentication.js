@@ -57,7 +57,7 @@ router.post('/login', (req, res, next) => {
 
 router.post('/logout', (req, res, next) => {
   req.session.destroy();
-  res.json({});
+  res.json({ type: 'success', data: { title: 'OK' } });
 });
 
 module.exports = router;
