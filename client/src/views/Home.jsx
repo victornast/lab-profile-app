@@ -1,21 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import GreenLink from './../components/GreenLink';
 
 function Home() {
   return (
-    <div className="flex flex-col">
-      <Link
-        className="w-40 flex items-center justify-center text-xl shadow-md px-8 py-3 text-base font-medium rounded-md text-white bg-green-300 hover:bg-green-100 md:py-4 md:text-lg md:px-10"
-        to="/auth/signup"
-      >
-        Sign Up
-      </Link>
-      <Link
-        className="w-40 flex items-center justify-center text-xl shadow-md px-8 py-3 text-base font-medium rounded-md text-white bg-green-300 hover:bg-green-100 md:py-4 md:text-lg md:px-10"
-        to="/auth/login"
-      >
-        Log In
-      </Link>
+    <div className="flex flex-col max-w-xs">
+      <h1 className="text-3xl text-green-900 font-bold mb-6">IronProfile</h1>
+      <p className="text-lg text-gray-900 mb-28">
+        An App with Authentification. And Tailwind.
+      </p>
+      <GreenLink path="/auth/signup" title="Sign Up" />
+      <GreenLink path="/auth/login" title="Log In" />
     </div>
   );
 }

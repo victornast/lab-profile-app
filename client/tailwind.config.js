@@ -12,19 +12,30 @@ module.exports = {
     },
     colors: {
       green: colors.emerald,
+      gray: colors.coolGray,
     },
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
+      sans: ['Fira\\ Sans', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
     extend: {
       spacing: {
         128: '32rem',
         144: '36rem',
+        card: '717px',
       },
       borderRadius: {
         '4xl': '2rem',
       },
+      minHeight: {
+        card: '458px',
+      },
+      minWidth: {
+        card: '717px',
+      },
+      backgroundImage: (theme) => ({
+        oval: "url('./oval-bg.png')",
+      }),
     },
   },
   variants: {
